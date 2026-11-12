@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Call fabric_devops library"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f7dcf3cb-759d-9a4d-4d34-8d62324dc566"
+  }
+}
