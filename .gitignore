@@ -1,0 +1,22 @@
+~$*
+*~
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+
+# token cache for local development in VSCode
+.token_cache
+.token_cache/
+
+# Http Client Test Files
+*.http
+
+# Exports folder
+exports
+exports/
