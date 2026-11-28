@@ -1,0 +1,55 @@
+name: Sync dev workspace
+run-name: Sync dev workspace from branch ${{ github.ref_name }} 
+
+on:
+    workflow_dispatch:
+    push:
+      branches:
+        - main
+      paths:
+        - workspace/**
+
+jobs:
+    deployment-job:
+      name: Sync workspace
+      runs-on: ubuntu-22.04
+
+      steps:
+        - name: Check out the code
+          uses: actions/checkout@v4
+
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: "3.12"
+
+        - name: Install Python SDK for Fabric REST APIs
+          run: |
+              pip install microsoft-fabric-api -q
+
+        - name: Install  fabric-cicd
+          run: |
+              pip install fabric-cicd -q
+
+        - name: Install PyNaCl
+          run: |
+                pip install PyNaCl -q
+
+        - name: Sync workspace
+          env:
+              BRANCH_NAME: ${{ github.ref_name }}
+              GITHUB_WORKSPACE : $GITHUB_WORKSPACE
+              AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+              AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+              AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+              AZURE_STORAGE_SAS_TOKEN: ${{ secrets.AZURE_STORAGE_SAS_TOKEN }}
+              PERSONAL_ACCESS_TOKEN_GITHUB: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }}
+              ORGANIZATION_GITHUB: ${{ vars.ORGANIZATION_GITHUB }}
+              FABRIC_CAPACITY_ID: ${{ vars.FABRIC_CAPACITY_ID }}         
+              ADMIN_USER_ID: ${{ vars.ADMIN_USER_ID }}
+              WORKSPACE_ADMIN_GROUP: ${{ vars.WORKSPACE_ADMIN_GROUP }}
+              WORKSPACE_ID_DEV: ${{ vars.WORKSPACE_ID_DEV }}
+              WORKSPACE_ID_TEST: ${{ vars.WORKSPACE_ID_TEST }}
+              WORKSPACE_ID_PROD: ${{ vars.WORKSPACE_ID_PROD }}
+          run: 
+              python 'src/sync_dev_workspace.py'                          
