@@ -1,0 +1,4 @@
+dependencies:
+  - pip:
+      - semantic-link-labs==0.17.1
+      - microsoft-fabric-api==0.1.0b11
